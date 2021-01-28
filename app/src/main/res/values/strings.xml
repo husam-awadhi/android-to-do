@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">to-do</string>
+    <string name="title_today">Today</string>
+    <string name="title_history">History</string>
+    <string name="title_search">Search -WIP-</string>
+    <string name="today_hint">to-do...</string>
+<!--    <string name="title_notifications">Notifications</string>-->
+</resources>
