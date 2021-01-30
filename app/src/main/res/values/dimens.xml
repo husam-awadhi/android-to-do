@@ -15,4 +15,5 @@
 
     <!--others-->
     <dimen name="wrap_constraints">0dp</dimen>
+    <dimen name="dimen_24">24dp</dimen>
 </resources>

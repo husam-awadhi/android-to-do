@@ -1,45 +1,68 @@
 package com.husam.to_do
 
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.husam.to_do.ftagments.add.AddTodoDialog
-import com.husam.to_do.models.add.AddViewModel
-import kotlinx.android.synthetic.main.activity_main.*
+import com.husam.to_do.databinding.ActivityMainBinding
+import com.husam.to_do.fragments.add.AddTodoDialog
+import com.husam.to_do.models.TaskViewModel
+import com.husam.to_do.providers.DatabaseProvider
+
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var addViewModel: AddViewModel
+//    private lateinit var taskViewModel: TaskViewModel
+//    private val sharedModelView: SharedModelView by viewModels()
+
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        // Initialize Database.
+        DatabaseProvider().initDatabase(this)
+
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        val navController = findNavController(R.id.nav_host_fragment)
+//        val navController = findNavController(R.id.nav_host_fragment)
 
-        addViewModel = ViewModelProvider(this).get(AddViewModel::class.java)
-        addViewModel.taskPriority.observe(this, Observer {
-            Log.d("NEW_TASK","Task:"+addViewModel.getTaskContent()+" Priority:"+addViewModel.getTaskPriority())
-            //save
-        })
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+//        taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
+//        taskViewModel.taskPriority.observe(this, Observer {
+//
+//            val task = Task()
+//            task.content = sharedModelView.parseContent(taskViewModel.getContent())
+//            task.priority = sharedModelView.parsePriority(taskViewModel.getPriority())
+//            TaskDatabase().add(task) //insert into Task
+//
+//        })
 
 
-        floatingActionButton.setOnClickListener {
+        binding.floatingActionButton.setOnClickListener {
             AddTodoDialog().show(supportFragmentManager, AddTodoDialog.TAG)
         }
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_history, R.id.navigation_history))
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.homeFragment, R.id.navigation_search, R.id.navigation_history
+            )
+        )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
@@ -47,5 +70,28 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    //top menu inflate.
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.top_bar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_delete_all) {
+            val message: String =
+                if (!TaskViewModel(application).deleteAll()) "Error While Deleting Task objects"
+                else "Data Cleared!"
+
+            Toast.makeText(application, message, Toast.LENGTH_SHORT).show()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 }

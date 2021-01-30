@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_home">
+    app:startDestination="@id/homeFragment">
+
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.husam.to_do.ftagments.list.HomeFragment"
+        android:id="@+id/homeFragment"
+        android:name="com.husam.to_do.fragments.list.HomeFragment"
         android:label="@string/title_today"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_detailsFragment"
             app:destination="@id/detailsFragment" />
@@ -17,23 +18,30 @@
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.husam.to_do.ftagments.details.DetailsFragment"
-        android:label="fragment_details"
-        tools:layout="@layout/fragment_details" >
+        android:name="com.husam.to_do.fragments.details.DetailsFragment"
+        android:label="@string/edit"
+        tools:layout="@layout/fragment_details">
         <action
             android:id="@+id/action_detailsFragment_to_updateFragment"
             app:destination="@id/updateFragment" />
         <action
             android:id="@+id/action_detailsFragment_to_navigation_home"
-            app:destination="@id/navigation_home" />
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="currentTask"
+            app:argType="com.husam.to_do.data.Task" />
     </fragment>
     <fragment
         android:id="@+id/updateFragment"
-        android:name="com.husam.to_do.ftagments.update.UpdateFragment"
-        android:label="Update"
-        tools:layout="@layout/fragment_update" >
+        android:name="com.husam.to_do.fragments.update.UpdateFragment"
+        android:label="@string/update"
+        tools:layout="@layout/fragment_update">
         <action
             android:id="@+id/action_updateFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.husam.to_do.fragments.list.HistoryFragment"
+        android:label="@string/history" />
 </navigation>

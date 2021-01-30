@@ -1,4 +1,4 @@
-package com.husam.to_do.ftagments.list
+package com.husam.to_do.fragments.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
