@@ -15,12 +15,17 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     private val taskContent = MutableLiveData<String>()
     private val taskStatus = MutableLiveData<String>()
-    val taskPriority = MutableLiveData<String>()
+    private val taskPriority = MutableLiveData<String>()
+    val noTasks: MutableLiveData<Boolean> = MutableLiveData(true)
 
     private var realm: Realm = DatabaseProvider().getDatabaseInstance()
     var getAllData: RealmResults<Task>? = realm.where<Task>().findAll()
 
-    fun getAllData(): List<Task>? {
+    fun databaseIsEmpty(list: List<Task>) {
+        noTasks.value = list.isEmpty()
+    }
+
+    fun getAllData(): RealmResults<Task>? {
         val data = realm.where<Task>().findAll()
         this.getAllData = data
         return data
@@ -28,7 +33,6 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     fun sendTask(task: String, priority: String) {
         taskContent.value = task
-//        taskStatus.value = status?.toUpperCase(Locale.ROOT)
         taskPriority.value = priority.toUpperCase(Locale.ROOT)
     }
 

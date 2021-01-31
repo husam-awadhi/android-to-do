@@ -20,9 +20,6 @@ import com.husam.to_do.providers.DatabaseProvider
 
 class MainActivity : AppCompatActivity() {
 
-//    private lateinit var taskViewModel: TaskViewModel
-//    private val sharedModelView: SharedModelView by viewModels()
-
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
 
@@ -37,21 +34,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-//        val navController = findNavController(R.id.nav_host_fragment)
-
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-
-//        taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
-//        taskViewModel.taskPriority.observe(this, Observer {
-//
-//            val task = Task()
-//            task.content = sharedModelView.parseContent(taskViewModel.getContent())
-//            task.priority = sharedModelView.parsePriority(taskViewModel.getPriority())
-//            TaskDatabase().add(task) //insert into Task
-//
-//        })
 
 
         binding.floatingActionButton.setOnClickListener {

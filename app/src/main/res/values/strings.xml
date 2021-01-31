@@ -26,4 +26,5 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="confirmation">Are you sure?</string>
+    <string name="since">Since</string>
 </resources>

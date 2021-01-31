@@ -1,4 +1,4 @@
-package com.husam.to_do.fragments.add
+package com.husam.to_do.fragments.update
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -17,7 +17,7 @@ import com.husam.to_do.databinding.FragmentAddDialogBinding
 import com.husam.to_do.models.SharedModelView
 import com.husam.to_do.models.TaskViewModel
 
-class AddTodoDialog : DialogFragment() {
+class EditTodoDialog : DialogFragment() {
 
     companion object {
 
@@ -27,7 +27,7 @@ class AddTodoDialog : DialogFragment() {
 
     private lateinit var viewModel: TaskViewModel
     private val sharedModelView: SharedModelView by viewModels()
-    private var _binding: FragmentAddDialogBinding? = null
+    private var _binding: FragmentEditDialogBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -35,7 +35,7 @@ class AddTodoDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAddDialogBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentEditDialogBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 

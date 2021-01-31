@@ -35,6 +35,8 @@
         android:alpha="0.5"
         android:textAlignment="center"
         android:text="@string/nothing"
+        android:textColor="@color/lightGray"
+        android:textStyle="bold"
         android:textSize="18sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"

@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_navigation_home_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_placeholder"
+            app:destination="@id/placeholder" />
     </fragment>
 
     <fragment
@@ -44,4 +47,5 @@
         android:id="@+id/historyFragment"
         android:name="com.husam.to_do.fragments.list.HistoryFragment"
         android:label="@string/history" />
+    <fragment android:id="@+id/placeholder" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.husam.to_do.fragments.list
+package com.husam.to_do.adapters
 
 
 import android.view.LayoutInflater
@@ -6,9 +6,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.husam.to_do.R
 import com.husam.to_do.data.Task
 import com.husam.to_do.databinding.TaskLayoutBinding
+import com.husam.to_do.fragments.list.HomeFragmentDirections
 import com.husam.to_do.models.SharedModelView
+import java.text.SimpleDateFormat
 import java.util.*
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.TaskViewHolder>() {
@@ -49,7 +52,10 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.TaskViewHolder>() {
                         sharedModelView.getPriorityColor(item.priority)
                     )
                 )
-                taskStatus.text = item.status.toUpperCase(Locale.ROOT)
+                (item.status.toUpperCase(Locale.ROOT) + " " + root.context.getString(R.string.since)
+                        + " " + SimpleDateFormat("E, dd MMM yyyy hh:mma").format(item.created)
+                    .toString()).also { taskStatus.text = it }
+
                 cardBackground.setOnClickListener {
                     val action = HomeFragmentDirections.actionNavigationHomeToDetailsFragment(item)
                     findNavController(binding.root)
