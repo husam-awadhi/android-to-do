@@ -33,9 +33,9 @@ class Task {
                 tasks.forEach {
                     Log.d(
                         "NEW_TASK",
-                        "id:" + it.id + "Task:" + it.content + " Priority:" + it.priority + " Created:" +
-                                it.created + " migrateDate:" + it.migrateDate + " hide:" +
-                                it.hide + " deleted:" + it.deleted
+                        "id:" + it.id + "Task:" + it.content + " Priority:" + it.priority + " Status:"
+                                + it.status + " Created:" + it.created + " migrateDate:"
+                                + it.migrateDate + " hide:" + it.hide + " deleted:" + it.deleted
                     )
                 }
                 Log.d("NEW_TASK", "========== END =========")

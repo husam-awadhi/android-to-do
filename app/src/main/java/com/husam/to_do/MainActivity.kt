@@ -1,5 +1,6 @@
 package com.husam.to_do
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -79,13 +80,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_delete_all) {
-            val message: String =
-                if (!TaskViewModel(application).deleteAll()) "Error While Deleting Task objects"
-                else "Data Cleared!"
+        val builder = AlertDialog.Builder(this)
 
-            Toast.makeText(application, message, Toast.LENGTH_SHORT).show()
+        if (item.itemId == R.id.menu_delete_all) {
+            builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
+
+                val message: String =
+                    if (!TaskViewModel(application).deleteAll()) "Error While Deleting Task objects"
+                    else "Data Cleared!"
+
+                Toast.makeText(application, message, Toast.LENGTH_SHORT).show()
+            }
+                .setTitle(getString(R.string.delete_all))
+                .setMessage(getString(R.string.confirmation))
         }
+
+        builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
+            .create()
+            .show()
         return super.onOptionsItemSelected(item)
     }
 
